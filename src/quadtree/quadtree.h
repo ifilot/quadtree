@@ -69,8 +69,8 @@ public:
     void draw(Shader* shader) {
         const glm::mat4 projection = Camera::get().get_projection();
 
-        float scale = this->width / 1.0;
-        glm::vec3 color = glm::vec3((float)level / 10.0f, (float)level / 10.0f, (float)level / 10.0f, 0.1f);
+        float scale = this->width / 1.0f;
+        glm::vec3 color = glm::vec3((float)level / 10.0f, (float)level / 10.0f, (float)level / 10.0f);
         glm::mat4 mvp = projection * glm::translate(glm::mat4(1.0f), glm::vec3(this->cx - this->width / 2, this->cy - this->height / 2, (float)level / 10.0f)) * glm::scale(glm::vec3(scale,scale,1.0));
         shader->set_uniform("mvp", &mvp);
         glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, 0);
