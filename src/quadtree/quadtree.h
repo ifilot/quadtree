@@ -70,9 +70,17 @@ public:
         const glm::mat4 projection = Camera::get().get_projection();
 
         float scale = this->width / 1.0f;
-        glm::vec3 color = glm::vec3((float)level / 10.0f, (float)level / 10.0f, (float)level / 10.0f);
-        glm::mat4 mvp = projection * glm::translate(glm::mat4(1.0f), glm::vec3(this->cx - this->width / 2, this->cy - this->height / 2, (float)level / 10.0f)) * glm::scale(glm::vec3(scale,scale,1.0));
+        float angle = atan2(cy, cx);
+        float col1 = cos(angle);
+        float col2 = sin(angle);
+        glm::vec4 color = glm::vec4(col1, col2, 1.0f, 0.1f);
+        glm::mat4 mvp = projection * glm::translate(glm::mat4(1.0f), glm::vec3(this->cx - this->width / 2.0, this->cy - this->height / 2.0, (float)level / 10.0f)) * glm::scale(glm::vec3(scale,scale,1.0));
+        shader->set_uniform("color", &color);
         shader->set_uniform("mvp", &mvp);
+        glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, 0);
+        color = glm::vec4(col1, col2, 1.0f, 1.0f);
+        mvp = projection * glm::translate(glm::mat4(1.0f), glm::vec3(this->cx - this->width / 2.0, this->cy - this->height / 2.0, 1.0f)) * glm::scale(glm::vec3(scale,scale,1.0));
+        shader->set_uniform("color", &color);
         glDrawElements(GL_LINE_LOOP, 4, GL_UNSIGNED_INT, 0);
 
         for(auto obj: this->objects) {

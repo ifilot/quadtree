@@ -6,7 +6,7 @@ Field::Field() {
 
     this->quadtree = QuadTree<Point>(0.5, 0.5, 1, 1);
 
-    for(unsigned int i=0; i<100; i++) {
+    for(unsigned int i=0; i<50; i++) {
         double x = (double)rand() / (double)RAND_MAX;
         double y = (double)rand() / (double)RAND_MAX;
 
@@ -16,8 +16,7 @@ Field::Field() {
 }
 
 void Field::draw() {
-    static const glm::vec3 color = glm::vec3(1.0f,1.0f,1.0f);
-    static const glm::vec3 color2 = glm::vec3(1.0f,0.0f,0.0f);
+    static const glm::vec4 color = glm::vec4(1.0f,1.0f,1.0f,1.0f);
     const glm::mat4 projection = Camera::get().get_projection();
 
     this->shader->link_shader();
@@ -37,7 +36,7 @@ void Field::construct_shader() {
     this->shader = std::unique_ptr<Shader>(new Shader("assets/shaders/line"));
     this->shader->add_attribute(ShaderAttribute::POSITION, "position");
     this->shader->add_uniform(ShaderUniform::MAT4, "mvp", 1);
-    this->shader->add_uniform(ShaderUniform::VEC3, "color", 1);
+    this->shader->add_uniform(ShaderUniform::VEC4, "color", 1);
 }
 
 void Field::construct_objects() {

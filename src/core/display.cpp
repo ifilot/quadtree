@@ -3,12 +3,12 @@
  *                                                                        *
  *   Copyright (C) 2016, Ivo Filot                                        *
  *                                                                        *
- *   Netris is free software: you can redistribute it and/or modify       *
+ *   QuadTree is free software: you can redistribute it and/or modify     *
  *   it under the terms of the GNU General Public License as published    *
  *   by the Free Software Foundation, either version 3 of the License,    *
  *   or (at your option) any later version.                               *
  *                                                                        *
- *   Netris is distributed in the hope that it will be useful,            *
+ *   QuadTree is distributed in the hope that it will be useful,          *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty          *
  *   of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.              *
  *   See the GNU General Public License for more details.                 *
@@ -52,11 +52,11 @@ Display::Display() {
     if(Settings::get().get_boolean_from_keyword("settings.screen.full_screen")) {
         const unsigned int width = Settings::get().get_uint_from_keyword("settings.screen.resolution_x");
         const unsigned int height = Settings::get().get_uint_from_keyword("settings.screen.resolution_y");
-        this->m_window = glfwCreateWindow(width, height, "Netris" , NULL, NULL);
+        this->m_window = glfwCreateWindow(width, height, "QuadTree" , NULL, NULL);
     } else {
         GLFWmonitor* monitor = glfwGetPrimaryMonitor();
         const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-        this->m_window = glfwCreateWindow(mode->width, mode->height, "Netris" , monitor, NULL);
+        this->m_window = glfwCreateWindow(mode->width, mode->height, "QuadTree" , monitor, NULL);
     }
 
     // check if the window is properly constructed
@@ -103,6 +103,9 @@ Display::Display() {
     // enable culling
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
+
+    // set line width
+    glEnable(GL_LINE_SMOOTH);
 
     // disable cursor (we are going to use our own)
     //glfwSetInputMode(this->m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);

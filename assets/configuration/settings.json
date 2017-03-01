@@ -4,8 +4,8 @@
       "version": "0.5.0.beta",
       "screen":
       {
-         "resolution_x": 1024,
-         "resolution_y": 1024,
+         "resolution_x": 640,
+         "resolution_y": 640,
          "full_screen": false
       }
    }
